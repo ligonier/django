@@ -56,6 +56,13 @@ else:
                     dict.__setitem__(self, key, http_cookies.Morsel())
 
 
+# Add support for the SameSite attribute (obsolete when PY37 is unsupported).
+# MJG: The PY37 comment means that Python 3.8 adds this attribute by default,
+# MJG: so when Python 3.7 (or older() is no longer supported,
+# MJG: this line becomes obsolete.
+http_cookies.Morsel._reserved.setdefault('samesite', 'SameSite')
+
+
 def parse_cookie(cookie):
     """
     Return a dictionary parsed from a `Cookie:` header string.
